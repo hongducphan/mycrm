@@ -34,6 +34,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Customer findByEmail(String email) {
+        Customer customer = customerRepository.findByEmail(email);
+
+        if (customer != null) {
+            return customer;
+        } else {
+            throw new RuntimeException("Cannot find customer with Email: " + email);
+        }
+    }
+
+    @Override
     public void save(Customer customer) {
         customerRepository.save(customer);
     }
