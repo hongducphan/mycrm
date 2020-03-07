@@ -1,5 +1,6 @@
 package com.ducph.mycrm.service;
 
+import com.ducph.mycrm.controller.customer.CustomerException;
 import com.ducph.mycrm.entity.Customer;
 import com.ducph.mycrm.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (customer.isPresent()) {
             result = customer.get();
         } else {
-            throw new RuntimeException("Cannot find customer with ID: " + id);
+            throw new CustomerException("Cannot find customer with ID: " + id);
         }
 
         return result;
@@ -40,7 +41,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (customer != null) {
             return customer;
         } else {
-            throw new RuntimeException("Cannot find customer with Email: " + email);
+            throw new CustomerException("Cannot find customer with Email: " + email);
         }
     }
 
@@ -56,7 +57,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (customer.isPresent()) {
             customerRepository.deleteById(id);
         } else {
-            throw new RuntimeException("Cannot find customer with ID: " + id);
+            throw new CustomerException("Cannot find customer with ID: " + id);
         }
     }
 }

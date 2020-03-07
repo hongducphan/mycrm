@@ -1,4 +1,4 @@
-package com.ducph.mycrm.controller;
+package com.ducph.mycrm.controller.customer;
 
 import com.ducph.mycrm.entity.Customer;
 import com.ducph.mycrm.service.CustomerService;
