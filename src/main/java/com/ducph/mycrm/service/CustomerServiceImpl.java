@@ -35,14 +35,15 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer findByEmail(String email) {
-        Customer customer = customerRepository.findByEmail(email);
-
-        if (customer != null) {
-            return customer;
-        } else {
-            throw new CustomerException("Cannot find customer with Email: " + email);
+    public List<Customer> findByFirstNameOrLastNameOrEmailLike(String firstName, String lastName, String email) {
+        List<Customer> customer = customerRepository.findByFirstNameOrLastNameOrEmailLike(firstName, lastName, email);
+        
+        if (customer == null) {
+            throw new CustomerException("Cannot find customer with first name: <" + firstName
+                    + "> or last name: <" + lastName
+                    + "> or email: <" + email + ">");
         }
+        return customer;
     }
 
     @Override

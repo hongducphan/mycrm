@@ -10,7 +10,7 @@ public interface CustomerService {
 
     Customer findById(int id);
 
-    Customer findByEmail(String email);
+    List<Customer> findByFirstNameOrLastNameOrEmailLike(String firstName, String lastName, String email);
 
     void save(Customer customer);
 

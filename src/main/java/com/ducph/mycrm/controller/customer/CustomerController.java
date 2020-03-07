@@ -33,11 +33,6 @@ public class CustomerController {
         return customerService.findById(id);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public Customer findByEmail(@RequestParam(value = "email") String email) {
-        return customerService.findByEmail(email);
-    }
-
     @PostMapping("/")
     public Customer save(@RequestBody Customer customer) {
         customerService.save(customer);
@@ -54,5 +49,11 @@ public class CustomerController {
     public String deleteById(@PathVariable int id) {
         customerService.deleteById(id);
         return "Deleted customer with ID: " + id;
+    }
+    
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Customer> findByFirstNameOrLastNameOrEmail(@RequestParam(name = "value") String value) {
+        String searchValue = "%" + value + "%";
+        return customerService.findByFirstNameOrLastNameOrEmailLike(searchValue, searchValue, searchValue);
     }
 }
