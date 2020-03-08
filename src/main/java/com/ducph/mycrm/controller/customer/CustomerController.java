@@ -28,11 +28,6 @@ public class CustomerController {
         return customerService.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Customer findById(@PathVariable int id) {
-        return customerService.findById(id);
-    }
-
     @PostMapping("/")
     public Customer save(@RequestBody Customer customer) {
         customerService.save(customer);
@@ -50,8 +45,8 @@ public class CustomerController {
         customerService.deleteById(id);
         return "Deleted customer with ID: " + id;
     }
-    
-    @RequestMapping(method = RequestMethod.GET)
+
+    @GetMapping("/search")
     public List<Customer> findByFirstNameOrLastNameOrEmail(@RequestParam(name = "value") String value) {
         String searchValue = "%" + value + "%";
         return customerService.findByFirstNameOrLastNameOrEmailLike(searchValue, searchValue, searchValue);
