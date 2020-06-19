@@ -1,4 +1,4 @@
-package com.ducph.mycrm.controller.customer;
+package com.ducph.mycrm.controller.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
