@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class CustomerController {
     
     @GetMapping("/search/{value}")
     public List<Customer> search(@PathVariable("value") String value) {
-        return customerService.search(value);
+//        return customerService.search(value);
+        return customerService.criteriaSearch(HtmlUtils.htmlEscape(value));
     }
 }
