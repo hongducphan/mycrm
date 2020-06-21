@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CustomerService {
     List<Customer> search(String value);
+    List<Customer> criteriaSearch(String value);
 }
