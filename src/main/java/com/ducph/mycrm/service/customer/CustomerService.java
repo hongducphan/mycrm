@@ -1,13 +1,14 @@
-package com.ducph.mycrm.service;
+package com.ducph.mycrm.service.customer;
 
 import com.ducph.mycrm.entity.Customer;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CustomerService {
-    Page<Customer> search(String value, Pageable pageable);
 
     List<Customer> criteriaSearch(String value);
+    
+    Map<String, Object> searchByCustomer(String firstName, String lastName, String email, Pageable pageable);
 }
