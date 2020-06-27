@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Profile;
 @Data
 public class DBConfiguration {
 
-    private Logger logger = LoggerFactory.getLogger(DBConfiguration.class);
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private String url;
     private String username;

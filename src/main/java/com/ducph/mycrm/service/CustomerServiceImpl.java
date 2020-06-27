@@ -3,6 +3,8 @@ package com.ducph.mycrm.service;
 import com.ducph.mycrm.entity.Customer;
 import com.ducph.mycrm.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -23,13 +25,13 @@ public class CustomerServiceImpl implements CustomerService {
     private EntityManager em;
 
     @Override
-    public List<Customer> search(String value) {
-        return customerRepository.search(value);
+    public Page<Customer> search(String value, Pageable pageable) {
+        return customerRepository.search(value, pageable);
     }
 
     @Override
     public List<Customer> criteriaSearch(String value) {
-        String likeValue = "%" + value + "%";
+        var likeValue = "%" + value + "%";
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
         CriteriaQuery<Customer> cq = cb.createQuery(Customer.class);
