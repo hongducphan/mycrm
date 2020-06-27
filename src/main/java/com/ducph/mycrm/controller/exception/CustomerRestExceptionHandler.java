@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class CustomerRestExceptionHandler {
-    
+
     private final Logger logger = LoggerFactory.getLogger(CustomerRestExceptionHandler.class);
-    
+
     @ExceptionHandler
     public ResponseEntity<CustomerErrorResponse> handleException(ResourceNotFoundException e) {
         CustomerErrorResponse error = new CustomerErrorResponse(
@@ -20,7 +20,7 @@ public class CustomerRestExceptionHandler {
                 "Customer not found!",
                 System.currentTimeMillis());
         logger.error("System error: " + e.getMessage());
-        
+
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
