@@ -1,16 +1,14 @@
 package com.ducph.mycrm.repository;
 
 import com.ducph.mycrm.entity.Customer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import java.util.List;
-
-@RepositoryRestResource(collectionResourceRel = "customers", itemResourceRel = "customer")
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
-    @Query("from Customer where firstName like %:value% or lastName like %:value% or email like %:value%")
-    List<Customer> search(@Param("value") String value);
+    @Query("from Customer c where c.firstName like %:value% or c.lastName like %:value% or c.email like %:value%")
+    Page<Customer> search(@Param("value") String value, Pageable pageable);
 }
