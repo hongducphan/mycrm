@@ -1,4 +1,4 @@
-package com.ducph.mycrm.service;
+package com.ducph.mycrm.service.customer;
 
 import com.ducph.mycrm.entity.Customer;
 import com.ducph.mycrm.repository.CustomerRepository;
@@ -13,7 +13,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -23,11 +26,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private EntityManager em;
-
-    @Override
-    public Page<Customer> search(String value, Pageable pageable) {
-        return customerRepository.search(value, pageable);
-    }
 
     @Override
     public List<Customer> criteriaSearch(String value) {
@@ -45,5 +43,17 @@ public class CustomerServiceImpl implements CustomerService {
 
         TypedQuery<Customer> query = em.createQuery(cq);
         return query.getResultList();
+    }
+
+    @Override
+    public Map<String, Object> searchByCustomer(String firstName, String lastName, String email, Pageable pageable) {
+        var searchResult = customerRepository.searchByCustomer(firstName, lastName, email, pageable);
+        var result = new LinkedHashMap<String, Object>();
+        
+        result.put("content", searchResult.getContent());
+        result.put("totalPages", searchResult.getTotalPages());
+        result.put("totalElements", searchResult.getTotalElements());
+        
+        return result;
     }
 }
