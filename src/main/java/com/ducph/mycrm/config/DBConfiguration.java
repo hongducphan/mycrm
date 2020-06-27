@@ -12,13 +12,13 @@ import org.springframework.context.annotation.Profile;
 @ConfigurationProperties("spring.datasource")
 @Data
 public class DBConfiguration {
-    
+
     private Logger logger = LoggerFactory.getLogger(DBConfiguration.class);
-    
+
     private String url;
     private String username;
     private String password;
-    
+
     @Profile("dev")
     @Bean
     public String devDatabaseConnection() {
