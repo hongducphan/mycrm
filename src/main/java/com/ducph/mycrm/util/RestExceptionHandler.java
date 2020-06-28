@@ -1,7 +1,6 @@
-package com.ducph.mycrm.util.exception;
+package com.ducph.mycrm.util;
 
-import com.ducph.mycrm.entity.dto.ErrorResponseDTO;
-import com.ducph.mycrm.util.ApplicationUtils;
+import com.ducph.mycrm.dto.ErrorResponseDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;

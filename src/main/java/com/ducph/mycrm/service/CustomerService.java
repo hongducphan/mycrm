@@ -1,4 +1,4 @@
-package com.ducph.mycrm.service.customer;
+package com.ducph.mycrm.service;
 
 import com.ducph.mycrm.entity.Customer;
 import org.springframework.data.domain.Pageable;

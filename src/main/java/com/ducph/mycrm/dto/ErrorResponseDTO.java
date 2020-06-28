@@ -1,4 +1,4 @@
-package com.ducph.mycrm.entity.dto;
+package com.ducph.mycrm.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
