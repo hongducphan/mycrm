@@ -1,7 +1,7 @@
 package com.ducph.mycrm.controller;
 
 import com.ducph.mycrm.entity.Customer;
-import com.ducph.mycrm.service.customer.CustomerService;
+import com.ducph.mycrm.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
