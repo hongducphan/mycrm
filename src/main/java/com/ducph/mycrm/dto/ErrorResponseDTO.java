@@ -9,5 +9,5 @@ public class ErrorResponseDTO {
     
     private int status;
     private String message;
-    private String dateTime;
+    private String timeStamp;
 }
