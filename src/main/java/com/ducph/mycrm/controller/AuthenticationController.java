@@ -27,13 +27,10 @@ public class AuthenticationController {
     private JwtUtil jwtTokenUtil;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequestDTO jwtRequestDTO) throws Exception {
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(jwtRequestDTO.getUsername(), jwtRequestDTO.getPassword()));
-        } catch (BadCredentialsException e) {
-            throw new Exception("Invalid username or password!", e);
-        }
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequestDTO jwtRequestDTO) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(jwtRequestDTO.getUsername(), jwtRequestDTO.getPassword()));
+        
         final UserDetails userDetails = userDetailsService.loadUserByUsername(jwtRequestDTO.getUsername());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
