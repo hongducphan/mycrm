@@ -2,7 +2,6 @@ package com.ducph.mycrm.controller;
 
 import com.ducph.mycrm.entity.Customer;
 import com.ducph.mycrm.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +15,12 @@ import javax.validation.Valid;
 @RequestMapping("/customers")
 public class CustomerController {
 
-    @Autowired
-    private CustomerService customerService;
-    
+    private final CustomerService customerService;
+
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
     @PostMapping("/search")
     public ResponseEntity<?> searchByCustomer(@Valid @RequestBody Customer customer, Pageable pageable) {
         var result = customerService.searchByCustomer(customer.getFirstName(), 
