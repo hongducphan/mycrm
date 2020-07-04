@@ -4,6 +4,8 @@ import com.ducph.mycrm.entity.Customer;
 import com.ducph.mycrm.service.CustomerService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +22,23 @@ public class CustomerController {
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
+    
+    @GetMapping
+    public ResponseEntity<?> findAll(Pageable pageable) {
+        var result = customerService.findAll(pageable);
+        return ResponseEntity.ok(result);
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<?> findById(@PathVariable int id) {
+        var result = customerService.findById(id);
+        return ResponseEntity.ok(result);
+    }
 
     @PostMapping("/search")
     public ResponseEntity<?> searchByCustomer(@Valid @RequestBody Customer customer, Pageable pageable) {
         var result = customerService.searchByCustomer(customer.getFirstName(), 
                 customer.getLastName(), customer.getEmail(), pageable);
-
         return ResponseEntity.ok(result);
     }
 }
