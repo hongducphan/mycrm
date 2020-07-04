@@ -2,7 +2,6 @@ package com.ducph.mycrm.service;
 
 import com.ducph.mycrm.entity.Customer;
 import com.ducph.mycrm.repository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +18,14 @@ import java.util.Map;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
-    @Autowired
-    private EntityManager em;
+    private final EntityManager em;
+
+    public CustomerServiceImpl(CustomerRepository customerRepository, EntityManager em) {
+        this.customerRepository = customerRepository;
+        this.em = em;
+    }
 
     @Override
     public List<Customer> criteriaSearch(String value) {

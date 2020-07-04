@@ -1,7 +1,6 @@
 package com.ducph.mycrm.filter;
 
 import com.ducph.mycrm.util.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,11 +18,14 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private UserDetailsService myUserDetailsService;
+    private final UserDetailsService myUserDetailsService;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
+
+    public JwtRequestFilter(JwtUtil jwtUtil, UserDetailsService myUserDetailsService) {
+        this.jwtUtil = jwtUtil;
+        this.myUserDetailsService = myUserDetailsService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
