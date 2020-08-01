@@ -60,8 +60,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Map<String, Object> searchByCustomer(String firstName, String lastName, String email, Pageable pageable) {
-        var searchResult = customerRepository.searchByCustomer(firstName, lastName, email, pageable);
+    public Map<String, Object> searchByCustomer(Customer customer, Pageable pageable) {
+        var searchResult = customerRepository.searchByCustomer(customer, pageable);
         return ApplicationUtils.convertToPagingFormat(searchResult);
     }
 }

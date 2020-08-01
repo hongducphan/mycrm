@@ -15,5 +15,5 @@ public interface CustomerService {
 
     List<Customer> criteriaSearch(String value);
 
-    Map<String, Object> searchByCustomer(String firstName, String lastName, String email, Pageable pageable);
+    Map<String, Object> searchByCustomer(Customer customer, Pageable pageable);
 }

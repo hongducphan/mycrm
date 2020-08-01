@@ -37,8 +37,7 @@ public class CustomerController {
 
     @PostMapping("/search")
     public ResponseEntity<?> searchByCustomer(@Valid @RequestBody Customer customer, Pageable pageable) {
-        var result = customerService.searchByCustomer(customer.getFirstName(), 
-                customer.getLastName(), customer.getEmail(), pageable);
+        var result = customerService.searchByCustomer(customer, pageable);
         return ResponseEntity.ok(result);
     }
 }
