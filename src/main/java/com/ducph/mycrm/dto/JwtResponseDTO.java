@@ -1,14 +1,11 @@
 package com.ducph.mycrm.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 public class JwtResponseDTO {
     
     private final String jwt;
-
-    public JwtResponseDTO(String jwt) {
-        this.jwt = jwt;
-    }
-
-    public String getJwt() {
-        return jwt;
-    }
 }
