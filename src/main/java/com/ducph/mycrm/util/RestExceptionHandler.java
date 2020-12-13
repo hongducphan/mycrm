@@ -33,7 +33,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 ApplicationUtils.CUSTOMER_NOT_FOUND_MSG,
                 ApplicationUtils.getCurrentDateTime()
         );
-        logger.error(e.getMessage());
+        logger.error(ApplicationUtils.CUSTOMER_NOT_FOUND_MSG, e);
 
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
@@ -45,7 +45,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 ApplicationUtils.UNAUTHORIZED_ERROR,
                 ApplicationUtils.getCurrentDateTime()
         );
-        logger.error("Authorization failed: " + e.getMessage());
+        logger.error("Authorization failed!", e);
 
         return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
     }
@@ -57,7 +57,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 ApplicationUtils.SYSTEM_ERROR,
                 ApplicationUtils.getCurrentDateTime()
         );
-        logger.error("System error: " + e.getMessage());
+        logger.error("System error!", e);
 
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
