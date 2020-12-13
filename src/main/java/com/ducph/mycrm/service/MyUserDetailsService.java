@@ -2,6 +2,7 @@ package com.ducph.mycrm.service;
 
 import com.ducph.mycrm.entity.Account;
 import com.ducph.mycrm.repository.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,11 +15,8 @@ import java.util.Optional;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
-    private final AccountRepository accountRepository;
-
-    public MyUserDetailsService(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
-    }
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) {

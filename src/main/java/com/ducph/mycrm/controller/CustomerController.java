@@ -2,6 +2,7 @@ package com.ducph.mycrm.controller;
 
 import com.ducph.mycrm.entity.Customer;
 import com.ducph.mycrm.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +20,8 @@ import java.util.Optional;
 @RequestMapping("/customers")
 public class CustomerController {
 
-    private final CustomerService customerService;
-
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
+    @Autowired
+    private CustomerService customerService;
     
     @GetMapping
     public ResponseEntity<?> findAll(Pageable pageable) {

@@ -4,6 +4,7 @@ import com.ducph.mycrm.dto.JwtRequestDTO;
 import com.ducph.mycrm.dto.JwtResponseDTO;
 import com.ducph.mycrm.service.MyUserDetailsService;
 import com.ducph.mycrm.util.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,17 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthenticationController {
 
-    private final AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-    private final MyUserDetailsService userDetailsService;
+    @Autowired
+    private MyUserDetailsService userDetailsService;
 
-    private final JwtUtil jwtTokenUtil;
-
-    public AuthenticationController(AuthenticationManager authenticationManager, MyUserDetailsService userDetailsService, JwtUtil jwtTokenUtil) {
-        this.authenticationManager = authenticationManager;
-        this.userDetailsService = userDetailsService;
-        this.jwtTokenUtil = jwtTokenUtil;
-    }
+    @Autowired
+    private JwtUtil jwtTokenUtil;
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequestDTO jwtRequestDTO) {

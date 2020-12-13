@@ -1,6 +1,7 @@
 package com.ducph.mycrm.filter;
 
 import com.ducph.mycrm.util.JwtUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,23 +19,21 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    private final UserDetailsService myUserDetailsService;
+    @Autowired
+    private UserDetailsService myUserDetailsService;
 
-    private final JwtUtil jwtUtil;
-
-    public JwtRequestFilter(JwtUtil jwtUtil, UserDetailsService myUserDetailsService) {
-        this.jwtUtil = jwtUtil;
-        this.myUserDetailsService = myUserDetailsService;
-    }
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         final String authenticationHeader = request.getHeader("Authorization");
+        final String tokenPrefix = "Bearer ";
 
         String jwt = null;
         String username = null;
 
-        if (authenticationHeader != null && authenticationHeader.startsWith("Bearer ")) {
+        if (authenticationHeader != null && authenticationHeader.startsWith(tokenPrefix)) {
             jwt = authenticationHeader.substring(7);
             username = jwtUtil.extractUsername(jwt);
         }

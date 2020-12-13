@@ -3,6 +3,7 @@ package com.ducph.mycrm.service;
 import com.ducph.mycrm.entity.Customer;
 import com.ducph.mycrm.repository.CustomerRepository;
 import com.ducph.mycrm.util.ApplicationUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -21,14 +22,11 @@ import java.util.Optional;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    private final CustomerRepository customerRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
-    private final EntityManager em;
-
-    public CustomerServiceImpl(CustomerRepository customerRepository, EntityManager em) {
-        this.customerRepository = customerRepository;
-        this.em = em;
-    }
+    @Autowired
+    private EntityManager em;
 
     @Override
     public Map<String, Object> findAll(Pageable pageable) {
