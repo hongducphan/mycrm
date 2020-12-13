@@ -1,7 +1,8 @@
-package com.ducph.mycrm.service;
+package com.ducph.mycrm.service.impl;
 
 import com.ducph.mycrm.entity.Account;
 import com.ducph.mycrm.repository.AccountRepository;
+import com.ducph.mycrm.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

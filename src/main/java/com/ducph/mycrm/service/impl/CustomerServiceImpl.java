@@ -1,7 +1,8 @@
-package com.ducph.mycrm.service;
+package com.ducph.mycrm.service.impl;
 
 import com.ducph.mycrm.entity.Customer;
 import com.ducph.mycrm.repository.CustomerRepository;
+import com.ducph.mycrm.service.CustomerService;
 import com.ducph.mycrm.util.ApplicationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

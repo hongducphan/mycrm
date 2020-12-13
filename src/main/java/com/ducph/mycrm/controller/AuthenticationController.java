@@ -2,7 +2,7 @@ package com.ducph.mycrm.controller;
 
 import com.ducph.mycrm.dto.JwtRequestDTO;
 import com.ducph.mycrm.dto.JwtResponseDTO;
-import com.ducph.mycrm.service.MyUserDetailsService;
+import com.ducph.mycrm.service.impl.MyUserDetailsService;
 import com.ducph.mycrm.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

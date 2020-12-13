@@ -1,7 +1,7 @@
 package com.ducph.mycrm.config;
 
 import com.ducph.mycrm.filter.JwtRequestFilter;
-import com.ducph.mycrm.service.MyUserDetailsService;
+import com.ducph.mycrm.service.impl.MyUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
