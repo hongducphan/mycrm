@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/customers")
@@ -25,19 +27,19 @@ public class CustomerController {
     
     @GetMapping
     public ResponseEntity<?> findAll(Pageable pageable) {
-        var result = customerService.findAll(pageable);
+        Map<String, Object> result = customerService.findAll(pageable);
         return ResponseEntity.ok(result);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable int id) {
-        var result = customerService.findById(id);
+        Optional<Customer> result = customerService.findById(id);
         return ResponseEntity.ok(result);
     }
 
     @PostMapping("/search")
     public ResponseEntity<?> searchByCustomer(@Valid @RequestBody Customer customer, Pageable pageable) {
-        var result = customerService.searchByCustomer(customer, pageable);
+        Map<String, Object> result = customerService.searchByCustomer(customer, pageable);
         return ResponseEntity.ok(result);
     }
 }

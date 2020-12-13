@@ -3,6 +3,7 @@ package com.ducph.mycrm.service;
 import com.ducph.mycrm.entity.Customer;
 import com.ducph.mycrm.repository.CustomerRepository;
 import com.ducph.mycrm.util.ApplicationUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -31,19 +32,19 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Map<String, Object> findAll(Pageable pageable) {
-        var customers = customerRepository.findAll(pageable);
+        Page<Customer> customers = customerRepository.findAll(pageable);
         return ApplicationUtils.convertToPagingFormat(customers);
     }
 
     @Override
     public Optional<Customer> findById(int id) {
-        var result = customerRepository.findById(id);
+        Optional<Customer> result = customerRepository.findById(id);
         return result.map(x -> result).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
     public List<Customer> criteriaSearch(String value) {
-        var likeValue = "%" + value + "%";
+        String likeValue = "%" + value + "%";
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
         CriteriaQuery<Customer> cq = cb.createQuery(Customer.class);
@@ -61,7 +62,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Map<String, Object> searchByCustomer(Customer customer, Pageable pageable) {
-        var searchResult = customerRepository.searchByCustomer(customer, pageable);
+        Page<Customer> searchResult = customerRepository.searchByCustomer(customer, pageable);
         return ApplicationUtils.convertToPagingFormat(searchResult);
     }
 }

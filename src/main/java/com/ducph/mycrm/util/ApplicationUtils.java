@@ -19,7 +19,7 @@ public interface ApplicationUtils {
     }
 
     static Map<String, Object> convertToPagingFormat(Page<?> data) {
-        var result = new LinkedHashMap<String, Object>();
+        Map<String, Object> result = new LinkedHashMap<>();
 
         result.put("content", data.getContent());
         result.put("totalPages", data.getTotalPages());
