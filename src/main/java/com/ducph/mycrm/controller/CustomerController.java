@@ -2,6 +2,7 @@ package com.ducph.mycrm.controller;
 
 import com.ducph.mycrm.entity.Customer;
 import com.ducph.mycrm.service.CustomerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,34 +13,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/customers")
+@RequiredArgsConstructor
 public class CustomerController {
 
     private final CustomerService customerService;
 
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
-    
     @GetMapping
     public ResponseEntity<?> findAll(Pageable pageable) {
-        Map<String, Object> result = customerService.findAll(pageable);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(customerService.findAll(pageable));
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable int id) {
-        Optional<Customer> result = customerService.findById(id);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(customerService.findById(id));
     }
 
     @PostMapping("/search")
     public ResponseEntity<?> searchByCustomer(@Valid @RequestBody Customer customer, Pageable pageable) {
-        Map<String, Object> result = customerService.searchByCustomer(customer, pageable);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(customerService.searchByCustomer(customer, pageable));
     }
 }

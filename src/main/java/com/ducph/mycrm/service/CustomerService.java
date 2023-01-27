@@ -9,11 +9,11 @@ import java.util.Optional;
 
 public interface CustomerService {
 
-    Map<String, Object> findAll(Pageable pageable);
+    Map<Object, Object> findAll(Pageable pageable);
 
     Optional<Customer> findById(int id);
 
     List<Customer> criteriaSearch(String value);
 
-    Map<String, Object> searchByCustomer(Customer customer, Pageable pageable);
+    Map<Object, Object> searchByCustomer(Customer customer, Pageable pageable);
 }
