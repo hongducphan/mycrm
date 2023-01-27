@@ -1,3 +1,5 @@
 spring:
-  profiles:
-    active: dev
+  application:
+    name: mycrm
+  config:
+    import: http://localhost:8888

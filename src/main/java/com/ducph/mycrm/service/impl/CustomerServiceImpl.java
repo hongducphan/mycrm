@@ -6,6 +6,7 @@ import com.ducph.mycrm.service.CustomerService;
 import com.ducph.mycrm.util.ApplicationUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final EntityManager em;
+    private final RedisTemplate redisTemplate;
 
     @Override
     public Map<Object, Object> findAll(Pageable pageable) {
@@ -29,6 +32,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Optional<Customer> findById(int id) {
+        redisTemplate.opsForValue().set("duc", "duc value", 5, TimeUnit.SECONDS);
         var result = customerRepository.findById(id);
         return result.map(x -> result).orElseThrow(ResourceNotFoundException::new);
     }
@@ -53,7 +57,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Map<Object, Object> searchByCustomer(Customer customer, Pageable pageable) {
-        var searchResult = customerRepository.searchByCustomer(customer, pageable);
-        return ApplicationUtils.convertToPagingFormat(searchResult);
+        if (redisTemplate.opsForValue().get("duc") != null) {
+            System.out.println("!!!!!!!!!!!!! " + redisTemplate.opsForValue().get("duc"));
+            var searchResult = customerRepository.findByFirstNameContainsOrLastNameContainsOrEmailContains(
+                    customer.getFirstName(), customer.getLastName(), customer.getEmail(), pageable);
+            return ApplicationUtils.convertToPagingFormat(searchResult);
+        }
+        System.out.println("REDIS CACHE NOT FOUND");
+        return null;
     }
 }
