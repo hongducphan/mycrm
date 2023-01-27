@@ -18,8 +18,8 @@ public interface ApplicationUtils {
         return String.valueOf(new Date(new Timestamp(System.currentTimeMillis()).getTime()));
     }
 
-    static Map<String, Object> convertToPagingFormat(Page<?> data) {
-        Map<String, Object> result = new LinkedHashMap<>();
+    static Map<Object, Object> convertToPagingFormat(Page<?> data) {
+        var result = new LinkedHashMap<>();
 
         result.put("content", data.getContent());
         result.put("totalPages", data.getTotalPages());
