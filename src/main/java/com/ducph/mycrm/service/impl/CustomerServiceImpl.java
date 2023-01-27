@@ -1,7 +1,8 @@
-package com.ducph.mycrm.service;
+package com.ducph.mycrm.service.impl;
 
 import com.ducph.mycrm.entity.Customer;
 import com.ducph.mycrm.repository.CustomerRepository;
+import com.ducph.mycrm.service.CustomerService;
 import com.ducph.mycrm.util.ApplicationUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

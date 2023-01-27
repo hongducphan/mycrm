@@ -2,12 +2,12 @@ package com.ducph.mycrm.controller;
 
 import com.ducph.mycrm.dto.JwtRequestDTO;
 import com.ducph.mycrm.dto.JwtResponseDTO;
-import com.ducph.mycrm.service.MyUserDetailsService;
 import com.ducph.mycrm.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
-    private final MyUserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
     private final JwtUtil jwtTokenUtil;
 
     @PostMapping

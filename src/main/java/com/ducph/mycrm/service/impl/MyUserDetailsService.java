@@ -1,4 +1,4 @@
-package com.ducph.mycrm.service;
+package com.ducph.mycrm.service.impl;
 
 import com.ducph.mycrm.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
