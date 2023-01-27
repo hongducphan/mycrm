@@ -2,6 +2,7 @@ package com.ducph.mycrm.controller;
 
 import com.ducph.mycrm.entity.Account;
 import com.ducph.mycrm.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,12 +14,9 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/account")
 public class AccountController {
-    
-    private final AccountService accountService;
 
-    public AccountController(AccountService accountService) {
-        this.accountService = accountService;
-    }
+    @Autowired
+    private AccountService accountService;
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody @Valid Account account) {

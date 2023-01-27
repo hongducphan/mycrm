@@ -1,7 +1,8 @@
 package com.ducph.mycrm.config;
 
 import com.ducph.mycrm.filter.JwtRequestFilter;
-import com.ducph.mycrm.service.MyUserDetailsService;
+import com.ducph.mycrm.service.impl.MyUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -26,14 +27,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .oauth2Login();
 //    }
 
-    private final MyUserDetailsService myUserDetailsService;
+    @Autowired
+    private MyUserDetailsService myUserDetailsService;
 
-    private final JwtRequestFilter jwtRequestFilter;
-
-    public WebSecurityConfig(MyUserDetailsService myUserDetailsService, JwtRequestFilter jwtRequestFilter) {
-        this.myUserDetailsService = myUserDetailsService;
-        this.jwtRequestFilter = jwtRequestFilter;
-    }
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
