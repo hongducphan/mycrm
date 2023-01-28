@@ -20,7 +20,7 @@ public class AccountController {
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody @Valid Account account) {
-        Account savedAccount = accountService.save(account);
+        var savedAccount = accountService.save(account);
         return ResponseEntity.ok(savedAccount);
     }
 }
