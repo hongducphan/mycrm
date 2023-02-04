@@ -22,7 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final EntityManager em;
-    private final RedisTemplate redisTemplate;
+    private final RedisTemplate<Object, Object> redisTemplate;
 
     @Override
     public Map<Object, Object> findAll(Pageable pageable) {
@@ -62,8 +62,15 @@ public class CustomerServiceImpl implements CustomerService {
             var searchResult = customerRepository.findByFirstNameContainsOrLastNameContainsOrEmailContains(
                     customer.getFirstName(), customer.getLastName(), customer.getEmail(), pageable);
             return ApplicationUtils.convertToPagingFormat(searchResult);
+        } else {
+            System.out.println("REDIS CACHE NOT FOUND");
+            throw new RuntimeException();
         }
-        System.out.println("REDIS CACHE NOT FOUND");
-        return null;
+    }
+
+    @Override
+    public Map<Object, Object> getResponseFallback(RuntimeException e) {
+        System.out.println("Fallback call");
+        throw new ResourceNotFoundException("Fallback");
     }
 }
