@@ -34,6 +34,7 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-client</artifactId>
+			<version>4.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>redis.clients</groupId>
@@ -58,6 +59,7 @@
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
