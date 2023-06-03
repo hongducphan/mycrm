@@ -18,7 +18,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional
     public Account save(Account account) {
-        String encodedPassword = passwordEncoder.encode(account.getPassword());
+        var encodedPassword = passwordEncoder.encode(account.getPassword());
         account.setPassword(encodedPassword);
         return accountRepository.save(account);
     }

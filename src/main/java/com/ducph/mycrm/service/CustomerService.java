@@ -14,7 +14,7 @@ public interface CustomerService {
 
     Map<Object, Object> findAll(Pageable pageable);
 
-    Optional<Customer> findById(int id);
+    Customer findById(int id);
 
     List<Customer> criteriaSearch(String value);
 

@@ -5,6 +5,7 @@ import com.ducph.mycrm.repository.CustomerRepository;
 import com.ducph.mycrm.service.CustomerService;
 import com.ducph.mycrm.util.ApplicationUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -13,11 +14,11 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
@@ -31,10 +32,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Optional<Customer> findById(int id) {
+    public Customer findById(int id) {
         redisTemplate.opsForValue().set("duc", "duc value", 5, TimeUnit.SECONDS);
-        var result = customerRepository.findById(id);
-        return result.map(x -> result).orElseThrow(ResourceNotFoundException::new);
+        log.info("Customer Id: {}", id);
+        return customerRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
@@ -57,20 +58,19 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Map<Object, Object> searchByCustomer(Customer customer, Pageable pageable) {
-        if (redisTemplate.opsForValue().get("duc") != null) {
-            System.out.println("!!!!!!!!!!!!! " + redisTemplate.opsForValue().get("duc"));
-            var searchResult = customerRepository.findByFirstNameContainsOrLastNameContainsOrEmailContains(
-                    customer.getFirstName(), customer.getLastName(), customer.getEmail(), pageable);
-            return ApplicationUtils.convertToPagingFormat(searchResult);
-        } else {
-            System.out.println("REDIS CACHE NOT FOUND");
+        if (redisTemplate.opsForValue().get("duc") == null) {
+            log.error("REDIS CACHE NOT FOUND");
             throw new RuntimeException();
         }
+        log.info("Redis vaule: {}", redisTemplate.opsForValue().get("duc"));
+        var searchResult = customerRepository.findByFirstNameContainsOrLastNameContainsOrEmailContains(
+                customer.getFirstName(), customer.getLastName(), customer.getEmail(), pageable);
+        return ApplicationUtils.convertToPagingFormat(searchResult);
     }
 
     @Override
     public Map<Object, Object> getResponseFallback(RuntimeException e) {
-        System.out.println("Fallback call");
+        log.info("Fallback call");
         throw new ResourceNotFoundException("Fallback");
     }
 }
