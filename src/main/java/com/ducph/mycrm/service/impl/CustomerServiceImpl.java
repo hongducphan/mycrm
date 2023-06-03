@@ -3,7 +3,7 @@ package com.ducph.mycrm.service.impl;
 import com.ducph.mycrm.entity.Customer;
 import com.ducph.mycrm.repository.CustomerRepository;
 import com.ducph.mycrm.service.CustomerService;
-import com.ducph.mycrm.util.ApplicationUtils;
+import com.ducph.mycrm.constant.AppConstant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Map<Object, Object> findAll(Pageable pageable) {
         var customers = customerRepository.findAll(pageable);
-        return ApplicationUtils.convertToPagingFormat(customers);
+        return AppConstant.convertToPagingFormat(customers);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
         log.info("Redis vaule: {}", redisTemplate.opsForValue().get("duc"));
         var searchResult = customerRepository.findByFirstNameContainsOrLastNameContainsOrEmailContains(
                 customer.getFirstName(), customer.getLastName(), customer.getEmail(), pageable);
-        return ApplicationUtils.convertToPagingFormat(searchResult);
+        return AppConstant.convertToPagingFormat(searchResult);
     }
 
     @Override

@@ -16,7 +16,7 @@ import java.util.function.Function;
 public class JwtUtil {
 
     @Value("${spring.security.jwt.secretkey}")
-    private String SECRET_KEY;
+    private String secretKey;
 
     public String extractUsername(String token) {
         return this.extractClaim(token, Claims::getSubject);
@@ -27,12 +27,12 @@ public class JwtUtil {
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
+        final var claims = this.extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
 
     private boolean isTokenExpired(String token) {
@@ -40,18 +40,21 @@ public class JwtUtil {
     }
 
     public String generateToken(UserDetails userDetails) {
-        return createToken(new HashMap<>(), userDetails.getUsername());
+        return this.createToken(new HashMap<>(), userDetails.getUsername());
     }
 
     private String createToken(Map<String, Object> claims, String subject) {
-        var EXPIRATION_TIME = 1000 * 60 * 60 * 10;
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
+        var expirationTime = 1000 * 60 * 60 * 10;
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(subject)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
+                .signWith(SignatureAlgorithm.HS256, secretKey).compact();
     }
 
     public boolean validateToken(String token, UserDetails userDetails) {
-        final var username = extractUsername(token);
+        final var username = this.extractUsername(token);
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 }

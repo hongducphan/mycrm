@@ -1,6 +1,6 @@
 package com.ducph.mycrm.entity;
 
-import com.ducph.mycrm.util.ApplicationUtils;
+import com.ducph.mycrm.constant.AppConstant;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -33,6 +33,6 @@ public class Customer {
     private String lastName;
 
     @Column(name = "email")
-    @Email(message = ApplicationUtils.EMAIL_FORMAT_ERROR)
+    @Email(message = AppConstant.EMAIL_FORMAT_ERROR)
     private String email;
 }

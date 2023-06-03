@@ -1,4 +1,4 @@
-package com.ducph.mycrm.util;
+package com.ducph.mycrm.constant;
 
 import org.springframework.data.domain.Page;
 
@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public interface ApplicationUtils {
+public interface AppConstant {
 
     String CUSTOMER_NOT_FOUND_MSG = "Customer not found!";
     String SYSTEM_ERROR = "The system is under maintenance, please come back later!";
